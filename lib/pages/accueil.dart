@@ -86,17 +86,6 @@ class HomeScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // Prochaines messes
-                        _buildInfoRow(
-                          icon: Icons.calendar_today_outlined,
-                          iconColor: primaryBlue,
-                          title: 'Prochaines messes',
-                          subtitle: 'Dimanche : Lingala 6h30, Bilingue 9h00, Français 11h00',
-                        ),
-                        const Padding(
-                          padding: EdgeInsets.symmetric(vertical: 12.0),
-                          child: Divider(height: 1, color: Color(0xFFEEEEEE)),
-                        ),
                         // Adresse
                         _buildInfoRow(
                           icon: Icons.location_on_outlined,
@@ -112,7 +101,7 @@ class HomeScreen extends StatelessWidget {
             ),
 
             // Espace pour compenser la carte en Positioned
-            const SizedBox(height: 170),
+            const SizedBox(height: 100),
 
             // Section Accès Rapide
             Padding(

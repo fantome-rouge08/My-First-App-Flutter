@@ -1,5 +1,7 @@
+import 'package:appli1/main.dart';
+import 'package:appli1/pages/a-propos.dart';
+import 'package:appli1/pages/messes.dart';
 import 'package:flutter/material.dart';
-import 'navigation.dart';
 import 'agenda.dart';
 
 class ContactsPage extends StatelessWidget {
@@ -45,14 +47,16 @@ class ContactsPage extends StatelessWidget {
             onSelected: (valeur) {
               switch (valeur) {
                 case 1:
-                  // Remplacez par le nom exact de votre classe d'accueil (ex: HomeScreen())
-                  _naviguerVers(context, const NavigationPage());
-                  break;
-                case 2:
-                  // Remplacez par le nom exact de votre classe d'agenda (ex: AgendaScreen())
+                  // Remplacez par le nom exact de votre classe d'agenda
                   _naviguerVers(context, const AgendaPage());
                   break;
+
+                case 2:
+                  // Remplacez par le nom exact de votre classe Messe
+                  _naviguerVers(context, const AProposPage());
+                  break;
               }
+
             },
 
             // Liste des options qui s'affichent dans le menu déroulant
@@ -61,9 +65,9 @@ class ContactsPage extends StatelessWidget {
                 value: 1,
                 child: Row(
                   children: [
-                    Icon(Icons.home_outlined, color: Colors.black54),
+                    Icon(Icons.calendar_month_outlined, color: Colors.black54),
                     SizedBox(width: 12),
-                    Text('Accueil'),
+                    Text('Agenda'),
                   ],
                 ),
               ),
@@ -71,9 +75,9 @@ class ContactsPage extends StatelessWidget {
                 value: 2,
                 child: Row(
                   children: [
-                    Icon(Icons.calendar_month_outlined, color: Colors.black54),
+                    Icon(Icons.settings, color: Colors.black54),
                     SizedBox(width: 12),
-                    Text('Agenda'),
+                    Text('Parametre'),
                   ],
                 ),
               ),
