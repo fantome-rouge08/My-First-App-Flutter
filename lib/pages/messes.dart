@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 
-class MessePage extends StatelessWidget {
+class MessePage extends StatefulWidget {
   const MessePage({super.key});
 
   @override
+  State<MessePage> createState() => _MessePageState();
+}
+
+class _MessePageState extends State<MessePage> {
+  @override
   Widget build(BuildContext context) {
     const Color primaryBlue = Colors.blueAccent;
-
-    // Simulation de données pour les cartes
-   final List<Map<String, dynamic>> horairesSemaine = [
+    
+    // Vos données horairesSemaine restent ici
+     final List<Map<String, dynamic>> horairesSemaine = [
       {
         'jour': 'Lundi',
         'messes': [
@@ -70,35 +75,55 @@ class MessePage extends StatelessWidget {
       backgroundColor: const Color(0xFFF8FAFC),
       body: Column(
         children: [
-          // En-tête bleu personnalisé
           Container(
             width: double.infinity,
-            padding: const EdgeInsets.only(top: 35, bottom: 20, left: 24, right: 24),
+            padding: EdgeInsets.only( top: Navigator.canPop(context) ? 50:25, bottom: 20, left: 24, right: 24),
             color: primaryBlue,
-            child: const Column(
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Horaires des messes',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 26,
-                    fontWeight: FontWeight.bold,
-                  ),
+               children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    // Affiche le bouton retour UNIQUEMENT si on vient de l'accès rapide
+                    if (Navigator.canPop(context)) ...[
+                      IconButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        icon: const Icon(
+                          Icons.arrow_back,
+                          size: 28,
+                          color: Colors.white,
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                    ],
+                    const Expanded(
+                      child: Text(
+                        'Horaires des messes',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                SizedBox(height: 6),
-                Text(
-                  'Paroisse Saint-Léonard',
-                  style: TextStyle(
-                    color: Colors.white70,
-                    fontSize: 16,
-                  ),
-                ),
+
+                // Sous-titre en dessous
+                const SizedBox(height: 5),
+                Padding(
+                  padding : EdgeInsets.only(left: Navigator.canPop(context) ? 55.0 : 0.0 ),
+                  child : const Text(
+                     "Voici l'horaire des messes",
+                      style: TextStyle(color: Colors.white70, fontSize: 16 ,),
+                  )
+                )
               ],
             ),
           ),
-
-          // Liste défilante des 7 jours de la semaine
           Expanded(
             child: ListView.builder(
               padding: const EdgeInsets.all(20),
@@ -118,7 +143,6 @@ class MessePage extends StatelessWidget {
     );
   }
 
-  // Widget de construction d'une carte journalière
   Widget _buildJourCard({
     required String jour,
     required List<dynamic> messes,

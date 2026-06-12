@@ -1,65 +1,52 @@
-import 'package:appli1/main.dart';
-import 'package:appli1/pages/a-propos.dart';
-import 'package:appli1/pages/messes.dart';
-import 'package:flutter/material.dart';
-import 'agenda.dart';
+import 'package:appli1/pages/agenda.dart';
+import 'package:flutter/material.dart'; 
 
-class ContactsPage extends StatelessWidget {
+class ContactsPage extends StatefulWidget {
   const ContactsPage({super.key});
 
-  // Fonction utilitaire pour changer de page proprement
-  void _naviguerVers(BuildContext context, Widget page) {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => page),
-    );
-  }
+  @override
+  State<ContactsPage> createState() => _ContactsPageState();
+}
 
+class _ContactsPageState extends State<ContactsPage> {
   @override
   Widget build(BuildContext context) {
-    const Color primaryBlue = Color(0xFF1A66FF);
+    const Color primaryBlue = Colors.blueAccent;
 
     return Scaffold(
       backgroundColor: const Color(0xFFF8FAFC),
-
+      // L'AppBar avec la flèche de retour et le titre de la paroisse
       appBar: AppBar(
         backgroundColor: primaryBlue,
-        elevation: 1,
-
+        elevation: 30, 
+        foregroundColor: Colors.white,
         title: const Text(
-          'Contactez-nous',
+          'Paroisse Saint-Léonard',
           style: TextStyle(
             color: Colors.white,
-            fontWeight: FontWeight.bold,
             fontSize: 20,
+            fontWeight: FontWeight.bold,
           ),
         ),
-
-        // Les 'actions' placent les boutons tout à droite de l'AppBar
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white, size: 24),
+          tooltip: "Retour",
+          onPressed: () {
+            Navigator.of(context).pop(); // Ferme la page contact et retourne à l'accueil
+          },
+        ),
         actions: [
           PopupMenuButton<int>(
-            icon: const Icon(Icons.menu, color: Colors.white, size: 26,fontWeight: FontWeight.bold,),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
-
-            // Déclenche la navigation selon l'option choisie
+            icon: const Icon(Icons.more_vert, color: Colors.white, size: 28, fontWeight: FontWeight.bold),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
             onSelected: (valeur) {
-              switch (valeur) {
-                case 1:
-                  // Remplacez par le nom exact de votre classe d'agenda
-                  _naviguerVers(context, const AgendaPage());
-                  break;
-
-                case 2:
-                  // Remplacez par le nom exact de votre classe Messe
-                  _naviguerVers(context, const AProposPage());
-                  break;
+              if (valeur == 1) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const AgendaPage()),
+                );
               }
-
             },
-
-            // Liste des options qui s'affichent dans le menu déroulant
             itemBuilder: (context) => [
               const PopupMenuItem(
                 value: 1,
@@ -71,39 +58,54 @@ class ContactsPage extends StatelessWidget {
                   ],
                 ),
               ),
-              const PopupMenuItem(
-                value: 2,
-                child: Row(
-                  children: [
-                    Icon(Icons.settings, color: Colors.black54),
-                    SizedBox(width: 12),
-                    Text('Parametre'),
-                  ],
-                ),
-              ),
             ],
           ),
         ],
       ),
-
+      
       body: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
+          // Le grand conteneur bleu avec le titre de la page
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.only(top: 20, bottom: 25, left: 24, right: 24),
+            color: primaryBlue,
+            child: const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 10),
+                Text(
+                  'Contactez-nous',
+                  style: TextStyle(
+                    color: Colors.white, 
+                    fontSize: 26, 
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 6),
+                Text(
+                  'Restez connecté avec votre communauté paroissiale',
+                  style: TextStyle(
+                    color: Colors.white70, 
+                    fontSize: 16,
+                  ),
+                ),
+              ],
+            ),
+          ),
 
+          // Liste des coordonnées
+          Expanded(
+            child: ListView(
+              padding: const EdgeInsets.all(20.0),
+              children: [
+                const SizedBox(height: 10),
                 _buildContactTile(
                   icon: Icons.email_outlined,
                   iconColor: primaryBlue,
                   title: 'Adresse Email',
                   value: 'paroissesaintleonard@gmail.com',
                 ),
-
                 const SizedBox(height: 14),
-
                 _buildContactTile(
                   icon: Icons.phone_android_outlined,
                   iconColor: primaryBlue,
@@ -114,8 +116,7 @@ class ContactsPage extends StatelessWidget {
             ),
           ),
 
-          const Spacer(),
-
+          // Footer
           const Padding(
             padding: EdgeInsets.only(bottom: 20.0),
             child: Text(

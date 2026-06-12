@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="appli1"
+        android:label="Paroisse St Leonard"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icons">
         <activity
